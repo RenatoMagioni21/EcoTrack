@@ -1,0 +1,31 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+min-height:100vh;
+display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c7744);
+padding:20px;color:#fff}
+.card{
+width:100%;max-width:430px;background:rgba(255,255,255,.12);
+backdrop-filter:blur(12px);padding:30px;border-radius:24px;
+box-shadow:0 10px 30px rgba(0,0,0,.25)}
+h1{text-align:center;margin-bottom:8px}
+.subtitle{text-align:center;opacity:.9;margin-bottom:25px}
+.input-group{margin-bottom:18px}
+label{display:block;margin-bottom:8px;font-weight:bold}
+input{
+width:100%;padding:14px;border:none;border-radius:12px;
+background:#fff;color:#222;font-size:16px}
+input:focus{outline:2px solid #7fffa2}
+button{
+width:100%;padding:15px;border:none;border-radius:14px;
+background:linear-gradient(90deg,#22c55e,#16a34a);
+color:#fff;font-size:18px;font-weight:bold;cursor:pointer;
+transition:.2s}
+button:hover{transform:translateY(-2px)}
+.hidden{display:none}
+#resultado{margin-top:25px;text-align:center}
+.result-box{
+margin:15px 0;background:rgba(255,255,255,.15);
+padding:20px;border-radius:16px;font-size:28px;font-weight:bold}
+.dica{margin-top:10px;line-height:1.5}
