@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack | Pegada de Carbono</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+<div class="bg"></div>
+<div class="container">
+  <div class="card">
+    <h1>🌱 EcoTrack</h1>
+    <p class="subtitle">Calcule sua pegada de carbono mensal</p>
+
+    <div class="input-group">
+      <label>KM rodados por mês</label>
+      <input type="number" id="km" placeholder="Ex: 500">
+    </div>
+
+    <div class="input-group">
+      <label>Consumo de energia (kWh)</label>
+      <input type="number" id="energia" placeholder="Ex: 150">
+    </div>
+
+    <button onclick="calcular()">Calcular impacto</button>
+
+    <div id="resultado" class="hidden">
+      <h2>Resultado</h2>
+      <div class="result-box">
+        <span id="valor">0</span> kg de CO₂/mês
+      </div>
+      <p id="nivel"></p>
+      <p id="dica" class="dica"></p>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body></html>
