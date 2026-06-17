@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack | Pegada de Carbono</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        if (!sessionStorage.getItem('usuarioLogado')) {
+            alert('Acesso negado! Por favor, faça login.');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="logo-area">
+        <div class="eco-brand">
+            <div class="leaf-icon">🌿</div>
+            <div>
+                <h1 class="logo"><span>ECO</span>TRACK</h1>
+                <p class="tagline">Monitorar hoje. Preservar amanhã.</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="subtitle" id="boasVindas">Calcule sua pegada de carbono mensal</p>
+
+    <div class="input-group">
+      <label>KM rodados por mês</label>
+      <input type="number" id="km" placeholder="Ex: 500">
+    </div>
+
+    <div class="input-group">
+      <label>Consumo de energia (kWh)</label>
+      <input type="number" id="energia" placeholder="Ex: 150">
+    </div>
+
+    <button onclick="calcular()">🌿 Calcular impacto</button>
+
+    <div id="resultado" class="hidden">
+      <h2>Resultado</h2>
+      <div class="result-box">
+        <span id="valor">0</span> kg de CO₂/mês
+      </div>
+      <p id="nivel"></p>
+      <p id="dica" class="dica"></p>
+    </div>
+    
+    <div class="historico-container" style="margin-top: 30px;">
+        <h2>Cálculos Anteriores</h2>
+        <div style="overflow-x: auto; margin-top: 15px;">
+            <table id="tabelaHistorico" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid rgba(255,255,255,0.2); color: #85ff96;">
+                        <th style="padding: 10px 5px;">Data</th>
+                        <th style="padding: 10px 5px;">KM</th>
+                        <th style="padding: 10px 5px;">kWh</th>
+                        <th style="padding: 10px 5px;">Total CO2</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoHistorico">
+                    </tbody>
+            </table>
+            <p id="historicoVazio" style="text-align: center; margin-top: 15px; opacity: 0.7; display: none;">Nenhum cálculo registrado ainda.</p>
+        </div>
+    </div>
+    
+    <button onclick="logout()" style="margin-top: 30px; background: #d9534f; box-shadow: none; font-size: 0.9rem; padding: 10px;">Sair da Conta</button>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

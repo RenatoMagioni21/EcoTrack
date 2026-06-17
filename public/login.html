@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack | Login e Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hidden-form {
+            display: none !important;
+        }
+        .toggle-link {
+            color: #85ff96;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .toggle-container {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="logo-area">
+            <div class="eco-brand">
+                <div class="leaf-icon">🌿</div>
+                <div>
+                    <h1 class="logo"><span>ECO</span>TRACK</h1>
+                    <p class="tagline">Monitorar hoje. Preservar amanhã.</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="card">
+            <div id="loginSection">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label>E-mail:</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Senha:</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit">Entrar</button>
+                </form>
+                <div class="toggle-container">
+                    <p>Ainda não tem conta? <span class="toggle-link" onclick="mostrarCadastro()">Cadastre-se</span></p>
+                </div>
+            </div>
+
+            <div id="registerSection" class="hidden-form">
+                <h2>Cadastro</h2>
+                <form id="registerForm">
+                    <div class="input-group">
+                        <label>Nome:</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="input-group">
+                        <label>E-mail:</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Senha:</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <button type="submit">Cadastrar</button>
+                </form>
+                <div class="toggle-container">
+                    <p>Já tem uma conta? <span class="toggle-link" onclick="mostrarLogin()">Voltar para o Login</span></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        // Funções para alternar as telas dinamicamente
+        function mostrarCadastro() {
+            document.getElementById('loginSection').classList.add('hidden-form');
+            document.getElementById('registerSection').classList.remove('hidden-form');
+        }
+
+        function mostrarLogin() {
+            document.getElementById('registerSection').classList.add('hidden-form');
+            document.getElementById('loginSection').classList.remove('hidden-form');
+        }
+
+        // Evento de Cadastro (Mantém a integração com o Back-end)
+        document.getElementById('registerForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            const nome = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const senha = document.getElementById('registerPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/registrar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, senha })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message);
+                    this.reset();
+                    mostrarLogin(); // Volta para a tela de login após cadastrar com sucesso!
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                alert('Erro ao conectar com o servidor.');
+            }
+        });
+
+        // Evento de Login (Mantém a integração com o Back-end)
+        document.getElementById('loginForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const senha = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    sessionStorage.setItem('usuarioLogado', JSON.stringify(data));
+                    alert(`Bem-vindo, ${data.nome}!`);
+                    window.location.href = 'index.html';
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                alert('Erro ao conectar com o servidor.');
+            }
+        });
+    </script>
+</body>
+</html>
